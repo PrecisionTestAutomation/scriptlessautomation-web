@@ -16,6 +16,9 @@ import org.testng.annotations.BeforeSuite;
  */
 public class WebBaseTest extends BaseTest {
 
+    /**
+     * <p>beforeSuiteWeb.</p>
+     */
     @BeforeSuite(alwaysRun = true)
     public void beforeSuiteWeb(){
         TestNgConfig.PLATFORM = "WEB";
