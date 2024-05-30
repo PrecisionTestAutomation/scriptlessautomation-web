@@ -12,8 +12,8 @@
 
   <licenses>
     <license>
-      <name>MIT License</name>
-      <url>https://opensource.org/licenses/MIT</url>
+      <name>PrecisionTestAutomation License</name>
+      <url>https://precisiontestautomation.in/open-code-license</url>
       <distribution>repo</distribution>
     </license>
   </licenses>
@@ -29,9 +29,9 @@
   </developers>
 
   <scm>
-    <url>https://github.com/PrecisionTestAutomation/ScriptlessAutomation-OpenSource</url>
-    <connection>scm:git:https://github.com/PrecisionTestAutomation/ScriptlessAutomation-OpenSource.git</connection>
-    <developerConnection>scm:git:git@github.com:PrecisionTestAutomation/ScriptlessAutomation-OpenSource.git</developerConnection>
+    <url>https://github.com/PrecisionTestAutomation/scriptlessautomation-web</url>
+    <connection>scm:git:https://github.com/PrecisionTestAutomation/scriptlessautomation-web.git</connection>
+    <developerConnection>scm:git:git@github.com:PrecisionTestAutomation/scriptlessautomation-web.git</developerConnection>
     <tag>testing</tag>
   </scm>
 
@@ -45,7 +45,7 @@
     <dependency>
       <groupId>in.precisiontestautomation.scriptlessautomation</groupId>
       <artifactId>scriptlessautomation-api</artifactId>
-      <version>1.2</version>
+      <version>1.6</version>
     </dependency>
     <dependency>
       <groupId>org.seleniumhq.selenium</groupId>
@@ -101,6 +101,7 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-javadoc-plugin</artifactId>
+        <version>3.6.3</version>
         <executions>
           <execution>
             <id>attach-javadocs</id>
