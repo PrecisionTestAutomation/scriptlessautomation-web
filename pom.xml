@@ -3,7 +3,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>in.precisiontestautomation.scriptlessautomation</groupId>
   <artifactId>scriptlessautomation-web</artifactId>
-  <version>1.0</version>
+  <version>1.3</version>
   <packaging>jar</packaging>
 
   <name>Scriptless Automation</name>
@@ -45,17 +45,18 @@
     <dependency>
       <groupId>in.precisiontestautomation.scriptlessautomation</groupId>
       <artifactId>scriptlessautomation-api</artifactId>
-      <version>1.6</version>
+      <version>LATEST</version>
     </dependency>
     <dependency>
       <groupId>org.seleniumhq.selenium</groupId>
       <artifactId>selenium-java</artifactId>
       <version>4.12.1</version>
     </dependency>
+    <!-- https://mvnrepository.com/artifact/io.github.bonigarcia/webdrivermanager -->
     <dependency>
       <groupId>io.github.bonigarcia</groupId>
       <artifactId>webdrivermanager</artifactId>
-      <version>5.6.3</version>
+      <version>5.8.0</version>
     </dependency>
   </dependencies>
 
