@@ -11,7 +11,6 @@
 - [Prerequisites](#Prerequisites)
 - [Project_Setup](#Project Setup)
 - [Configuration](#Configuration)
-- [Installation](#installation)
 - [IntelliJ_IDEA_Setup](#IntelliJ IDEA Setup)
 - [Conclusion](#Conclusion)
 - [Next_Steps](#Next Steps)
