@@ -9,12 +9,12 @@
 ## Table of Contents
 - [Introduction](#Introduction)
 - [Prerequisites](#Prerequisites)
-- [Project Setup](#Project Setup)
+- [Project_Setup](#Project Setup)
 - [Configuration](#Configuration)
 - [Installation](#installation)
-- [IntelliJ IDEA Setup](#IntelliJ IDEA Setup)
+- [IntelliJ_IDEA_Setup](#IntelliJ IDEA Setup)
 - [Conclusion](#Conclusion)
-- [Next Steps](#Next Steps)
+- [Next_Steps](#Next Steps)
 
 ## Introduction
 This guide provides a step-by-step process to set up and run a Maven project with Scriptless Automation for API testing. It includes adding dependencies, configuring plugins, and setting up the necessary configurations for API automation.
