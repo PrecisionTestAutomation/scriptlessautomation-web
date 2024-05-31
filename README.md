@@ -1,4 +1,4 @@
-# PrecisionTestAutomation
+# Web Automation
 
 ![Java CI with Maven](https://img.shields.io/badge/Java%20CI%20with%20Maven-blue.svg)
 ![Maven Central](https://img.shields.io/maven-central/v/in.precisiontestautomation.scriptlessautomation/scriptlessautomation-web.svg)
@@ -9,11 +9,11 @@
 ## Table of Contents
 - [Introduction](#Introduction)
 - [Prerequisites](#Prerequisites)
-- [Project_Setup](#Project Setup)
+- [ProjectSetup](#ProjectSetup)
 - [Configuration](#Configuration)
-- [IntelliJ_IDEA_Setup](#IntelliJ IDEA Setup)
+- [IntelliJIdeaSetup](#IntelliJIdeaSetup)
 - [Conclusion](#Conclusion)
-- [Next_Steps](#Next Steps)
+- [NextSteps](#NextSteps)
 
 ## Introduction
 This guide provides a step-by-step process to set up and run a Maven project with Scriptless Automation for API testing. It includes adding dependencies, configuring plugins, and setting up the necessary configurations for API automation.
@@ -24,7 +24,7 @@ Before you begin, ensure you have the following installed on your system:
 * Apache Maven
 * IntelliJ IDEA (or any preferred IDE)
 
-## Project Setup
+## ProjectSetup
 ### 1. **Create a Maven Project**
    Create a new Maven project in your IDE or via the command line.
 ### 2. **Add Dependencies**
@@ -193,7 +193,7 @@ baseUrl=https://qa.example.com
    **5.4 test_data/web/page_screenshot**
     This directory stores different page screenshots to do UI testing.
 
-## IntelliJ IDEA Setup
+## IntelliJIdeaSetup
 ### 6. Add IntelliJ Run Configuration
    Create a run configuration in IntelliJ IDEA to run your Maven project. Follow these steps:
 1.    Go to Run > Edit Configurations.![](https://files.gitbook.com/v0/b/gitbook-x-prod.appspot.com/o/spaces%2FiGaaGnfeM1ej74weWKLs%2Fuploads%2Fov27CJI8g209RJEE2kzj%2FScreenshot%202024-06-01%20at%201.32.26%20AM.png?alt=media&token=d2a9f970-7be7-4590-8027-95d7e4602ce1)
@@ -211,7 +211,7 @@ mvn clean exec:java test
 ## Conclusion
    By following this guide, you have set up a Maven project with Scriptless Automation for web testing. You configured the necessary dependencies, plugins, and run configurations to execute your web automation tests.
    
-## Next Steps
+## NextSteps
 *    Customize your test scripts according to your web application requirements.
 *    Explore more features of Scriptless Automation to enhance your test coverage.
 *    Integrate additional tools and frameworks as needed for comprehensive test automation.
