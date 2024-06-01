@@ -16,7 +16,7 @@
 - [NextSteps](#NextSteps)
 
 ## Introduction
-This guide provides a step-by-step process to set up and run a Maven project with Scriptless Automation for API testing. It includes adding dependencies, configuring plugins, and setting up the necessary configurations for API automation.
+This guide provides a step-by-step process to set up and run a Maven project with Scriptless Automation for web testing. It includes adding dependencies, configuring plugins, and setting up the necessary configurations for web automation.
 
 ## Prerequisites
 Before you begin, ensure you have the following installed on your system:
@@ -28,13 +28,13 @@ Before you begin, ensure you have the following installed on your system:
 ### 1. **Create a Maven Project**
    Create a new Maven project in your IDE or via the command line.
 ### 2. **Add Dependencies**
-   Add the Scriptless Automation dependency for API testing to your pom.xml file:
+   Add the Scriptless Automation dependency for web testing to your pom.xml file:
     
 ```
     <dependencies>
       <dependency>
         <groupId>in.precisiontestautomation.scriptlessautomation</groupId>
-        <artifactId>scriptlessautomation-api</artifactId>
+        <artifactId>scriptlessautomation-web</artifactId>
         <version>LATEST</version>
       </dependency>
     </dependencies>
@@ -80,7 +80,7 @@ Before you begin, ensure you have the following installed on your system:
 
 ## Configuration
 ### 4. **Add Scriptless Configuration**
-   To execute Scriptless Automation for API testing, add the following configuration files in your project:
+   To execute Scriptless Web Automation, add the following configuration files in your project:
     
 ```
     project
@@ -95,37 +95,37 @@ Before you begin, ensure you have the following installed on your system:
 **4.1 browserConfiguration/chrome.properties**  
     This file contains the configuration settings for the Chrome browser.
 ```
-        # Chrome Browser Configuration
-        # Chrome prefs
-        chrome.prefs.profile.default_content_settings.popups=0
-        chrome.prefs.profile.default_content_setting_values.media_stream_camera=1
-        chrome.prefs.javascript.enable=true
-        chrome.prefs.credentials_enable_service=false
-        chrome.prefs.profile.password_manager_enabled=false
-        chrome.prefs.profile.downloadPath=target
-        
-        # Chrome options
-        chrome.options.excludeSwitches=enable-automation
-        chrome.options.no-sandbox=true
-        chrome.options.disable-dev-shm-usage=true
-        chrome.options.mockWebCamPath=path/to/mock/webcam
-        chrome.options.headless=false
-        chrome.options.window-size=1920,1080
-        chrome.options.start-maximized=true
+    # Chrome Browser Configuration
+    # Chrome prefs
+    chrome.prefs.profile.default_content_settings.popups=0
+    chrome.prefs.profile.default_content_setting_values.media_stream_camera=1
+    chrome.prefs.javascript.enable=true
+    chrome.prefs.credentials_enable_service=false
+    chrome.prefs.profile.password_manager_enabled=false
+    chrome.prefs.profile.downloadPath=target
+    
+    # Chrome options
+    chrome.options.excludeSwitches=enable-automation
+    chrome.options.no-sandbox=true
+    chrome.options.disable-dev-shm-usage=true
+    chrome.options.mockWebCamPath=path/to/mock/webcam
+    chrome.options.headless=false
+    chrome.options.window-size=1920,1080
+    chrome.options.start-maximized=true
 ```
 
 **4.2 reportConfiguration/extentReportConfiguration.properties**
    This file contains the configuration settings for the Extent Reports.
 
-    # Extent Report Configuration
-    ReportName = AutomationReport
-    
-    #DARK , STANDARD
-    Report_Theme = DARK
-    Report_JS = for (let e of document.querySelectorAll (".details-col")) { e.innerHTML ='Steps' };
-    Report_CSS = .header .vheader .nav-logo>a .logo {min-height: 52px;min-width: 52px;}
-    Report_logo = "/config/logo.jpg"
-    Report_captureScreenshotOnPass = true
+        # Extent Report Configuration
+        ReportName = AutomationReport
+        
+        #DARK , STANDARD
+        Report_Theme = DARK
+        Report_JS = for (let e of document.querySelectorAll (".details-col")) { e.innerHTML ='Steps' };
+        Report_CSS = .header .vheader .nav-logo>a .logo {min-height: 52px;min-width: 52px;}
+        Report_logo = "/config/logo.jpg"
+        Report_captureScreenshotOnPass = true
 
    **4.3 testNgConfiguration.properties**
     This file contains the TestNG configuration settings.
@@ -133,15 +133,17 @@ Before you begin, ensure you have the following installed on your system:
 ```
     # TestNG Configuration
     ReportName = AutomationReport
+    
+    Browser = chrome
     Env = sandbox
-    ThreadCount= 2
+    ThreadCount= 1
     
     FAILED_RETRY_COUNT=0
     SET_TEST_SUITE_NAME = Scriptless
     SET_TEST_NAME = Regression Testing
     
     TEST_DATA_SECTIONS=All
-    TEST_IDS=All
+    TEST_IDS=LoadUrl
     DISABLE_TEST_IDS=
     
     GROUPS=All
@@ -178,16 +180,16 @@ Add the necessary test data to your project. This involves creating a directory 
    **5.2 test_data/web/test_case_flows/TestDirectory/TestID_GroupName.csv**  
    This file contains test case flows and steps for each test. Each directory under test_case_flows represents a feature.
 ```
-# Example test case flow
-PAGE_NAME,WAIT_TYPE,SCROLL_TYPE,ELEMENT_NAME,ACTIONS,SEND_KEYS,VALIDATION,VALIDATION_TYPE
-NONE,NONE,NONE,NONE,LOAD_URL,https://www.gmail.com/,NONE,NONE
+    # Example test case flow
+    PAGE_NAME,WAIT_TYPE,SCROLL_TYPE,ELEMENT_NAME,ACTIONS,SEND_KEYS,VALIDATION,VALIDATION_TYPE
+    NONE,NONE,NONE,NONE,LOAD_URL,https://www.gmail.com/,NONE,NONE
 ```  
 
    **5.3 test_data/web/dynamic_strings**
     This file contains environment-specific dynamic strings
 ```
-# Example dynamic strings for QA
-baseUrl=https://qa.example.com
+    # Example dynamic strings for QA
+    baseUrl=https://qa.example.com
 ```
 
    **5.4 test_data/web/page_screenshot**
@@ -203,7 +205,7 @@ baseUrl=https://qa.example.com
 ### 7. Run CLI Command
    To execute the project, use the following CLI command:
 ```
-mvn clean exec:java test
+    mvn clean exec:java test
 ```
    
    This command will run the main class defined in the `exec-maven-plugin` configuration.
