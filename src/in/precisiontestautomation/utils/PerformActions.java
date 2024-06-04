@@ -57,9 +57,9 @@ public class PerformActions {
      *
      * @return a {@link org.openqa.selenium.WebElement} object
      */
-    public WebElement performAction() {
+    public WebElement performAction(boolean captureScreenshotOnPass) {
         WebElement element = GenerateWebElement.getInstance(this).get().getElement();
-        return ActionClass.actionsToBePerformed(element,this).getOrDefault(ActionTypes.valueOf(actions), () -> {
+        return ActionClass.actionsToBePerformed(element,this,captureScreenshotOnPass).getOrDefault(ActionTypes.valueOf(actions), () -> {
             throw new IllegalArgumentException("Invalid action: " + actions);
         }).get();
     }

@@ -6,6 +6,7 @@ import in.precisiontestautomation.elementgenerator.GenerateWebElement;
 import in.precisiontestautomation.enums.ActionTypes;
 import in.precisiontestautomation.scriptlessautomation.core.exceptionhandling.PrecisionTestException;
 import in.precisiontestautomation.scriptlessautomation.core.reports.ReportManagerRunner;
+import in.precisiontestautomation.scriptlessautomation.core.utils.CoreKeyInitializers;
 import in.precisiontestautomation.tests.API;
 import in.precisiontestautomation.tests.WEB;
 import org.openqa.selenium.Keys;
@@ -30,7 +31,7 @@ import static in.precisiontestautomation.enums.ActionTypes.*;
  */
 public class ActionClass {
 
-    public static Map<ActionTypes, Supplier<WebElement>> actionsToBePerformed(WebElement element, PerformActions performActions) {
+    public static Map<ActionTypes, Supplier<WebElement>> actionsToBePerformed(WebElement element, PerformActions performActions,boolean captureScreenshotOnPass) {
         return switch (ActionTypes.valueOf(performActions.getActions())) {
             case CLICK -> Map.of(ActionTypes.CLICK, () -> {
                 if (element != null) {
@@ -141,7 +142,8 @@ public class ActionClass {
 
                 boolean isTextPresent = new WebDriverWait(DriverManager.getDriver(), Duration.ofSeconds(waitSeconds))
                         .until(ExpectedConditions.textToBePresentInElement(element, WebFrameworkActions.integrateString(text)));
-                WebAutomationAsserts.getInstance().assertTrue(element,performActions.getElementName(), isTextPresent , "Element consist expected text","Element doesn't consist expected text");
+                String imageBase64 = WebFrameworkActions.takeScreenShotInBase64(element);
+                CoreKeyInitializers.getCustomSoftAssert().get().assertTrue(performActions.getElementName(), isTextPresent , "Element consist expected text","Element doesn't consist expected text",captureScreenshotOnPass,imageBase64);
 
                 return element;
             });
