@@ -1,14 +1,12 @@
 package in.precisiontestautomation.utils;
 
 
+import in.precisiontestautomation.apifactory.ApiRequester;
 import in.precisiontestautomation.enums.CsvFileHeader;
 import in.precisiontestautomation.scriptlessautomation.core.exceptionhandling.PrecisionTestException;
 import in.precisiontestautomation.scriptlessautomation.core.utils.AutomationAsserts;
 
-import java.util.HashMap;
-import java.util.Hashtable;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 
 public class ExtractTestDataFromCsv {
@@ -45,7 +43,7 @@ public class ExtractTestDataFromCsv {
         return this;
     }
 
-    public ExtractTestDataFromCsv executeSteps(WebAutomationAsserts automationAsserts, Boolean condition) {
+    public ExtractTestDataFromCsv executeSteps(AutomationAsserts automationAsserts, Boolean condition,Boolean captureScreenshotOnPass) {
         Map<CsvFileHeader, Object> csvHeaderElementMapper;
         if (!table.isEmpty()) {
             for (int i = 0; i < table.size(); i++) {
@@ -56,15 +54,26 @@ public class ExtractTestDataFromCsv {
                     continue;
                 }
 
-                csvHeaderElementMapper.put(CsvFileHeader.WEB_ELEMENT, PerformActions.getInstance(csvHeaderElementMapper).performAction());
+                csvHeaderElementMapper.put(CsvFileHeader.WEB_ELEMENT, PerformActions.getInstance(csvHeaderElementMapper).performAction(captureScreenshotOnPass));
 
                 if(condition) {
-                    Validations.getInstance(csvHeaderElementMapper).get().performValidation(automationAsserts);
+                    Validations.getInstance(csvHeaderElementMapper).get().performValidation(automationAsserts,captureScreenshotOnPass);
                 }
                 System.gc();
             }
         } else {
             throw new PrecisionTestException("No Steps are present to execute");
+        }
+        return this;
+    }
+
+    public ExtractTestDataFromCsv webGlobalVariableClear() {
+        try {
+            if (!Objects.isNull(WebKeyInitializers.getGlobalVariables().get().isEmpty())) {
+                WebKeyInitializers.getGlobalVariables().get().clear();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
         return this;
     }

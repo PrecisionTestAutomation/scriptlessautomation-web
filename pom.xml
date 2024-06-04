@@ -3,7 +3,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>in.precisiontestautomation.scriptlessautomation</groupId>
   <artifactId>scriptlessautomation-web</artifactId>
-  <version>1.3</version>
+  <version>1.4</version>
   <packaging>jar</packaging>
 
   <name>Scriptless Automation</name>
@@ -45,7 +45,7 @@
     <dependency>
       <groupId>in.precisiontestautomation.scriptlessautomation</groupId>
       <artifactId>scriptlessautomation-api</artifactId>
-      <version>LATEST</version>
+      <version>1.7</version>
     </dependency>
     <dependency>
       <groupId>org.seleniumhq.selenium</groupId>
