@@ -79,6 +79,7 @@ public class Validations {
                 case IS_ELEMENT_PRESENT -> automationAsserts.assertTrue(csvHeaderElementMapper.get(CsvFileHeader.ELEMENT_NAME).toString(), WebFrameworkActions.isElementPresentOnDOM(element), csvHeaderElementMapper.get(CsvFileHeader.ELEMENT_NAME) + " is present on DOM", csvHeaderElementMapper.get(CsvFileHeader.ELEMENT_NAME) + " is not present on DOM",captureScreenshotOnPass,WebFrameworkActions.takeScreenShotInBase64(element));
                 case IS_ELEMENT_NOT_PRESENT -> automationAsserts.assertFalse(csvHeaderElementMapper.get(CsvFileHeader.ELEMENT_NAME).toString(), WebFrameworkActions.isElementPresentOnDOM(element), csvHeaderElementMapper.get(CsvFileHeader.ELEMENT_NAME) + " is present on DOM", csvHeaderElementMapper.get(CsvFileHeader.ELEMENT_NAME) + " is not present on DOM",captureScreenshotOnPass,WebFrameworkActions.takeScreenShotInBase64(element));
                 case NONE -> automationAsserts.info(csvHeaderElementMapper.get(CsvFileHeader.ELEMENT_NAME).toString() + " has No validation point");
+                case FIND_BROKE_LINKS -> WebFrameworkActions.findBrokenLinks(element);
                 default -> throw new PrecisionTestException("Invalid validation type");
             }
         }
