@@ -6,6 +6,7 @@ import in.precisiontestautomation.scriptlessautomation.core.configurations.Exten
 import in.precisiontestautomation.scriptlessautomation.core.configurations.TestNgConfig;
 import in.precisiontestautomation.scriptlessautomation.core.exceptionhandling.PrecisionTestException;
 import in.precisiontestautomation.scriptlessautomation.core.testng.xmlgenerator.DataProviderUtil;
+import in.precisiontestautomation.scriptlessautomation.core.utils.CoreFrameworkActions;
 import in.precisiontestautomation.scriptlessautomation.core.utils.CoreKeyInitializers;
 import in.precisiontestautomation.setup.WebBaseTest;
 import in.precisiontestautomation.utils.ExtractTestDataFromCsv;
@@ -80,7 +81,7 @@ public class WEB extends WebBaseTest {
             throw new PrecisionTestException("Failed While running test case " + testCaseName + ", " + e.getLocalizedMessage());
         } finally {
             Reporter.getCurrentTestResult().setAttribute("testRailId", new File(filePath).getName().split("_")[0]);
-            Reporter.getCurrentTestResult().setAttribute("suiteName", new File(filePath).getParentFile().getName());
+            Reporter.getCurrentTestResult().setAttribute("suiteName", CoreFrameworkActions.getSuiteName(filePath));
         }
         System.out.println("----------------------------------" + testCaseName + " Ended----------------------------------");
     }
