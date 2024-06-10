@@ -203,12 +203,6 @@ public class ActionClass {
                 }
                 return element;
             });
-            case FIND_BROKE_LINKS -> Map.of(FIND_BROKE_LINKS,()->{
-                if(element != null){
-                    WebFrameworkActions.findBrokenLinks(element);
-                }
-                return element;
-            });
             default -> Map.of(NONE, () -> {
                 ReportManagerRunner.getTest().log(Status.INFO, performActions.getElementName() + " has no action to perform");
                 return element;

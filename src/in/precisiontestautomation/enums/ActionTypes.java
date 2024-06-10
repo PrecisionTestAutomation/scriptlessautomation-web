@@ -40,7 +40,6 @@ public enum ActionTypes {
     CLICK_BY_JS,
     DOUBLE_CLICK,
     CLEAR_SEND_KEYS,
-    FIND_BROKE_LINKS,
     SWITCH_BY_TITLE,
     SWITCH_BY_URL,
     SWITCH_NEW_TAB,
