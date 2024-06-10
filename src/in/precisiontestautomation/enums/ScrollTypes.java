@@ -11,5 +11,6 @@ public enum ScrollTypes {
     SCROLL_TO_ELEMENT_CENTER,
     SCROLL_TO_BOTTOM,
     SCROLL_TO_TOP,
+    SCROLL_TO_VIEW,
     NONE
 }

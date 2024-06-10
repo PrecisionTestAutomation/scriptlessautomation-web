@@ -20,5 +20,9 @@ public enum ValidationTypes {
     ATTRIBUTE_CONTAINS,
     CUSTOM,
     NONE,
-    CSS_PROPERTY
+    CSS_PROPERTY,
+    NOT_EQUALS,
+    IS_NOT_DISPLAY,
+    IS_ELEMENT_PRESENT,
+    IS_ELEMENT_NOT_PRESENT
 }

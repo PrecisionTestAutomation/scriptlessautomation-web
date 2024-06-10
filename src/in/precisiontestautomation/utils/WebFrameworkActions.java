@@ -26,6 +26,8 @@ import java.nio.file.Path;
 import java.time.Instant;
 import java.util.*;
 import java.util.function.BiPredicate;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.util.stream.Stream;
 
 public class WebFrameworkActions extends ApiFrameworkActions{
@@ -65,22 +67,15 @@ public class WebFrameworkActions extends ApiFrameworkActions{
         return element;
     }
 
-    public static void findBrokenLinks(List<WebElement> links, String[] strings, SoftAssert softAssert) {
-        for (WebElement element : links) {
-            String url = element.getAttribute("href");
-            softAssert.assertEquals(element.getText(), strings[links.indexOf(element)]);
-            if (url == null || url.isEmpty()) {
-                softAssert.assertFalse(false, strings[links.indexOf(element)] + " is broken");
-                continue;
-            }
-            try {
-                HttpURLConnection huc = (HttpURLConnection) (new URL(url).openConnection());
-                huc.setRequestMethod("HEAD");
-                huc.connect();
-                int respCode = huc.getResponseCode();
-                softAssert.assertFalse(respCode >= 400, strings[links.indexOf(element)] + " is a valid link");
-            } catch (IOException e) {
-                throw new PrecisionTestException("Exception while validating link " + url);
+    public static void findBrokenLinks(WebElement linkElement) {
+        List<WebElement> links = DriverManager.getDriver().findElements(extractLocator(linkElement));
+
+        for (WebElement link : links) {
+            String url = link.getAttribute("href");
+            if (url != null && !url.isEmpty()) {
+                checkLink(url);
+            } else {
+                System.out.println("FAIL: Link with no URL");
             }
         }
     }
@@ -307,4 +302,84 @@ public class WebFrameworkActions extends ApiFrameworkActions{
         }
         return filePath;
     }
+
+    public static boolean isElementPresentOnDOM(WebElement element){
+        try {
+            return element.isDisplayed();
+        }catch (Exception e){
+            return false;
+        }
+    }
+
+    public static By extractLocator(WebElement element) {
+        String elementString = element.toString();
+
+        // Define the regex pattern
+        Pattern pattern = Pattern.compile("-> (.+?): (.+)\\]");
+
+        // Match the pattern
+        Matcher matcher = pattern.matcher(elementString);
+
+        String locatorType = null;
+        String locatorValue = null;
+
+        if (matcher.find()) {
+            locatorType = matcher.group(1);
+            locatorValue = matcher.group(2);
+        }
+
+        By locator = null;
+
+        if (locatorType != null && locatorValue != null) {
+            switch (locatorType) {
+                case "id":
+                    locator = By.id(locatorValue);
+                    break;
+                case "xpath":
+                    locator = By.xpath(locatorValue);
+                    break;
+                case "className":
+                    locator = By.className(locatorValue);
+                    break;
+                case "cssSelector":
+                    locator = By.cssSelector(locatorValue);
+                    break;
+                case "linkText":
+                    locator = By.linkText(locatorValue);
+                    break;
+                case "partialLinkText":
+                    locator = By.partialLinkText(locatorValue);
+                    break;
+                case "name":
+                    locator = By.name(locatorValue);
+                    break;
+                case "tagName":
+                    locator = By.tagName(locatorValue);
+                    break;
+                default:
+                    System.out.println("Locator type not supported");
+                    break;
+            }
+        }
+
+        return locator;
+    }
+
+    private static void checkLink(String url) {
+        try {
+            URL link = new URL(url);
+            HttpURLConnection httpURLConnection = (HttpURLConnection) link.openConnection();
+            httpURLConnection.setConnectTimeout(3000); // Set connection timeout to 3 seconds
+            httpURLConnection.connect();
+            WebKeyInitializers.getCustomSoftAssert().get().assertTrue(url,
+                    httpURLConnection.getResponseCode() == 200,
+                    httpURLConnection.getResponseMessage()+ " - " + "link is working",
+                    httpURLConnection.getResponseMessage() + " - " + "is a broken link",
+                    false,
+                    null);
+        } catch (Exception e) {
+            WebKeyInitializers.getCustomSoftAssert().get().assertFalse(url ," - " + "is a broken link",false,null);
+        }
+    }
+
 }
