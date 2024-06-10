@@ -23,7 +23,8 @@ public class ScrollUtils {
         Map<ScrollTypes, Consumer<JavascriptExecutor>> actions = Map.of(
                 ScrollTypes.SCROLL_TO_ELEMENT_CENTER, e -> e.executeScript("arguments[0].scrollIntoView({block: 'center'})", element),
                 ScrollTypes.SCROLL_TO_BOTTOM, e -> e.executeScript("window.scrollTo(0,document.body.scrollHeight)"),
-                ScrollTypes.SCROLL_TO_TOP, e -> e.executeScript("arguments[0].scrollIntoView();", element),
+                ScrollTypes.SCROLL_TO_TOP, e -> e.executeScript("window.scrollTo(0, 0)"),
+                ScrollTypes.SCROLL_TO_VIEW, e -> e.executeScript("arguments[0].scrollIntoView();", element),
                 ScrollTypes.NONE, e -> e.executeScript("","")
         );
         actions.getOrDefault(ScrollTypes.valueOf(scrollType.toUpperCase()), e -> {

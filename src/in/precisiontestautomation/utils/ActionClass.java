@@ -178,11 +178,35 @@ public class ActionClass {
                 return element;
             });
             case DESELECT_BY_INDEX -> Map.of(DESELECT_BY_INDEX, () -> {
-                WebFrameworkActions.selectByIndex(element, performActions.getSendKeys());
+                WebFrameworkActions.deSelectByIndex(element, performActions.getSendKeys());
                 return element;
             });
             case DESELECT_BY_TEXT -> Map.of(DESELECT_BY_TEXT, () -> {
-                WebFrameworkActions.selectByText(element, performActions.getSendKeys());
+                WebFrameworkActions.deSelectByText(element, performActions.getSendKeys());
+                return element;
+            });
+            case CLICK_BY_JS -> Map.of(CLICK, () -> {
+                if (element != null) {
+                    WebFrameworkActions.clickByJavaScript(element);
+                }
+                return element;
+            });
+            case DOUBLE_CLICK -> Map.of(DOUBLE_CLICK,() ->{
+                if (element != null) {
+                    WebFrameworkActions.doubleClick(element);
+                }
+                return element;
+            });
+            case CLEAR_SEND_KEYS -> Map.of(CLEAR_SEND_KEYS,()->{
+                if(element != null){
+                    WebFrameworkActions.clearAndSendTextElementField(element, performActions.getSendKeys());
+                }
+                return element;
+            });
+            case FIND_BROKE_LINKS -> Map.of(FIND_BROKE_LINKS,()->{
+                if(element != null){
+                    WebFrameworkActions.findBrokenLinks(element);
+                }
                 return element;
             });
             default -> Map.of(NONE, () -> {
