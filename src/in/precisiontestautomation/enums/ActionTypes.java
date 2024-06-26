@@ -42,6 +42,6 @@ public enum ActionTypes {
     CLEAR_SEND_KEYS,
     SWITCH_BY_TITLE,
     SWITCH_BY_URL,
-    SWITCH_NEW_TAB,
+    SWITCH_TO_PARENT_WINDOW,
 
 }
