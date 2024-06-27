@@ -9,6 +9,7 @@ import in.precisiontestautomation.scriptlessautomation.core.reports.ReportManage
 import in.precisiontestautomation.scriptlessautomation.core.utils.CoreKeyInitializers;
 import in.precisiontestautomation.tests.API;
 import in.precisiontestautomation.tests.WEB;
+import org.openqa.selenium.Alert;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.WindowType;
@@ -202,6 +203,31 @@ public class ActionClass {
                     WebFrameworkActions.clearAndSendTextElementField(element, performActions.getSendKeys());
                 }
                 return element;
+            });
+            case WAIT_FOR_ALERT -> Map.of(WAIT_FOR_ALERT,()->{
+                new WebDriverWait(DriverManager.getDriver(),Duration.ofSeconds(Long.parseLong(performActions.getSendKeys())))
+                        .until(ExpectedConditions.alertIsPresent());
+                return null;
+            });
+            case ALERT_ACCEPT -> Map.of(ALERT_ACCEPT,()->{
+                DriverManager.getDriver().switchTo().alert().accept();
+                DriverManager.getDriver().switchTo().defaultContent();
+                return null;
+            });
+            case ALERT_DISMISS -> Map.of(ALERT_DISMISS,()->{
+                DriverManager.getDriver().switchTo().alert().dismiss();
+                DriverManager.getDriver().switchTo().defaultContent();
+                return null;
+            });
+            case ALERT_SEND_KEYS -> Map.of(ALERT_SEND_KEYS,()->{
+                DriverManager.getDriver().switchTo().alert().sendKeys(performActions.getSendKeys());
+                DriverManager.getDriver().switchTo().defaultContent();
+                return null;
+            });
+            case ALERT_GET_TEXT -> Map.of(ALERT_GET_TEXT,()->{
+                String alertText = DriverManager.getDriver().switchTo().alert().getText();
+                WebKeyInitializers.getGlobalVariables().get().put(performActions.getSendKeys(), alertText);
+                return null;
             });
             default -> Map.of(NONE, () -> {
                 ReportManagerRunner.getTest().log(Status.INFO, performActions.getElementName() + " has no action to perform");
