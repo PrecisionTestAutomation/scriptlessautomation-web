@@ -382,4 +382,20 @@ public class WebFrameworkActions extends ApiFrameworkActions{
         }
     }
 
+    public static void keyboardDown(){
+        new Actions(DriverManager.getDriver()).keyDown(Keys.ARROW_DOWN);
+        Runtime.getRuntime().gc();
+    }
+
+    public static void keyboardEnter(){
+        new Actions(DriverManager.getDriver()).keyDown(Keys.ENTER);
+        Runtime.getRuntime().gc();
+    }
+
+    public static void keyboardUp(){
+        new Actions(DriverManager.getDriver()).keyDown(Keys.ARROW_UP);
+        Runtime.getRuntime().gc();
+    }
+
+
 }

@@ -3,7 +3,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>in.precisiontestautomation.scriptlessautomation</groupId>
   <artifactId>scriptlessautomation-web</artifactId>
-  <version>1.5.2</version>
+  <version>1.5.4</version>
   <packaging>jar</packaging>
 
   <name>Scriptless Automation</name>

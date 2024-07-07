@@ -80,9 +80,9 @@ public class ActionClass {
                 WEB.getInstance().testRunner(WebFrameworkActions.getFileWithStartName(performActions.getSendKeys()), false);
                 return null;
             });
-            case KEYBOARD_DOWN_ARROW ->
-                    Map.of(KEYBOARD_DOWN_ARROW, () -> WebFrameworkActions.clickDownArrayOnElement(element));
-            case KEYBOARD_TAB -> Map.of(KEYBOARD_TAB, () -> WebFrameworkActions.clickTabOnElement(element));
+            case ELEMENT_DOWN_ARROW ->
+                    Map.of(ELEMENT_DOWN_ARROW, () -> WebFrameworkActions.clickDownArrayOnElement(element));
+            case ELEMENT_TAB -> Map.of(ELEMENT_TAB, () -> WebFrameworkActions.clickTabOnElement(element));
             case SWITCH_FRAME_WEB_ELEMENT -> Map.of(SWITCH_FRAME_WEB_ELEMENT, () -> {
                 performActions.setPageName(performActions.getSendKeys().split(":")[0]);
                 performActions.setElementName(performActions.getSendKeys().split(":")[1]);
@@ -202,6 +202,39 @@ public class ActionClass {
                     WebFrameworkActions.clearAndSendTextElementField(element, performActions.getSendKeys());
                 }
                 return element;
+            });
+            case WAIT_FOR_ALERT -> Map.of(WAIT_FOR_ALERT,()->{
+                new WebDriverWait(DriverManager.getDriver(),Duration.ofSeconds(Long.parseLong(performActions.getSendKeys())))
+                        .until(ExpectedConditions.alertIsPresent());
+                return null;
+            });
+            case ALERT_ACCEPT -> Map.of(ALERT_ACCEPT,()->{
+                DriverManager.getDriver().switchTo().alert().accept();
+                DriverManager.getDriver().switchTo().defaultContent();
+                return null;
+            });
+            case ALERT_DISMISS -> Map.of(ALERT_DISMISS,()->{
+                DriverManager.getDriver().switchTo().alert().dismiss();
+                DriverManager.getDriver().switchTo().defaultContent();
+                return null;
+            });
+            case ALERT_SEND_KEYS -> Map.of(ALERT_SEND_KEYS,()->{
+                DriverManager.getDriver().switchTo().alert().sendKeys(performActions.getSendKeys());
+                DriverManager.getDriver().switchTo().defaultContent();
+                return null;
+            });
+            case ALERT_GET_TEXT -> Map.of(ALERT_GET_TEXT,()->{
+                String alertText = DriverManager.getDriver().switchTo().alert().getText();
+                WebKeyInitializers.getGlobalVariables().get().put(performActions.getSendKeys(), alertText);
+                return null;
+            });
+            case KEYBOARD_DOWN_ARROW -> Map.of(KEYBOARD_DOWN_ARROW,()->{
+                WebFrameworkActions.keyboardDown();
+                return null;
+            });
+            case KEYBOARD_UP_ARROW -> Map.of(KEYBOARD_UP_ARROW,()->{
+                WebFrameworkActions.keyboardUp();
+                return null;
             });
             default -> Map.of(NONE, () -> {
                 ReportManagerRunner.getTest().log(Status.INFO, performActions.getElementName() + " has no action to perform");
