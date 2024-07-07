@@ -9,7 +9,6 @@ import in.precisiontestautomation.scriptlessautomation.core.reports.ReportManage
 import in.precisiontestautomation.scriptlessautomation.core.utils.CoreKeyInitializers;
 import in.precisiontestautomation.tests.API;
 import in.precisiontestautomation.tests.WEB;
-import org.openqa.selenium.Alert;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.WindowType;
@@ -81,9 +80,9 @@ public class ActionClass {
                 WEB.getInstance().testRunner(WebFrameworkActions.getFileWithStartName(performActions.getSendKeys()), false);
                 return null;
             });
-            case KEYBOARD_DOWN_ARROW ->
-                    Map.of(KEYBOARD_DOWN_ARROW, () -> WebFrameworkActions.clickDownArrayOnElement(element));
-            case KEYBOARD_TAB -> Map.of(KEYBOARD_TAB, () -> WebFrameworkActions.clickTabOnElement(element));
+            case ELEMENT_DOWN_ARROW ->
+                    Map.of(ELEMENT_DOWN_ARROW, () -> WebFrameworkActions.clickDownArrayOnElement(element));
+            case ELEMENT_TAB -> Map.of(ELEMENT_TAB, () -> WebFrameworkActions.clickTabOnElement(element));
             case SWITCH_FRAME_WEB_ELEMENT -> Map.of(SWITCH_FRAME_WEB_ELEMENT, () -> {
                 performActions.setPageName(performActions.getSendKeys().split(":")[0]);
                 performActions.setElementName(performActions.getSendKeys().split(":")[1]);
@@ -227,6 +226,14 @@ public class ActionClass {
             case ALERT_GET_TEXT -> Map.of(ALERT_GET_TEXT,()->{
                 String alertText = DriverManager.getDriver().switchTo().alert().getText();
                 WebKeyInitializers.getGlobalVariables().get().put(performActions.getSendKeys(), alertText);
+                return null;
+            });
+            case KEYBOARD_DOWN_ARROW -> Map.of(KEYBOARD_DOWN_ARROW,()->{
+                WebFrameworkActions.keyboardDown();
+                return null;
+            });
+            case KEYBOARD_UP_ARROW -> Map.of(KEYBOARD_UP_ARROW,()->{
+                WebFrameworkActions.keyboardUp();
                 return null;
             });
             default -> Map.of(NONE, () -> {
