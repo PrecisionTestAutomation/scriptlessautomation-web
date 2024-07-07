@@ -386,5 +386,4 @@ public class WebFrameworkActions extends ApiFrameworkActions{
         new Actions(DriverManager.getDriver()).keyDown(charSequence);
         Runtime.getRuntime().gc();
     }
-
 }
