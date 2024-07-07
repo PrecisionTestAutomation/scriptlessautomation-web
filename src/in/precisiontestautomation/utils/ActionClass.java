@@ -229,11 +229,15 @@ public class ActionClass {
                 return null;
             });
             case KEYBOARD_DOWN_ARROW -> Map.of(KEYBOARD_DOWN_ARROW,()->{
-                WebFrameworkActions.keyboardDown();
+                WebFrameworkActions.keyboardPressButton(Keys.ARROW_DOWN);
                 return null;
             });
             case KEYBOARD_UP_ARROW -> Map.of(KEYBOARD_UP_ARROW,()->{
-                WebFrameworkActions.keyboardUp();
+                WebFrameworkActions.keyboardPressButton(Keys.ARROW_UP);
+                return null;
+            });
+            case KEYBOARD_ENTER -> Map.of(KEYBOARD_ENTER,()->{
+                WebFrameworkActions.keyboardPressButton(Keys.ENTER);
                 return null;
             });
             default -> Map.of(NONE, () -> {
