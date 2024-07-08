@@ -1,4 +1,4 @@
-package in.precisiontestautomation.drivers;
+package in.precisiontestautomation.enums;
 
 /**
  * <p>DriverTypes class.</p>

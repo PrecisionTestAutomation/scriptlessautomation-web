@@ -26,7 +26,15 @@ public class ExtractTestDataFromCsv {
     public ExtractTestDataFromCsv collectAllSteps() {
         try {
             final int[] count = {0};
-            List<Map<String, String>> allElements = CsvReader.readCSVFile(filePath);
+            List<Map<String, String>> allElements = null;
+            if(filePath.toLowerCase().endsWith(".csv")){
+                allElements = CsvReader.readCSVFile(filePath);
+            } else if(filePath.toLowerCase().endsWith(".feature")){
+                allElements = GherkinReader.getInstance().readGherkinSteps(filePath);
+            } else {
+                throw new PrecisionTestException("Automation doesn't support the extension "+filePath.split("\\.")[1]+ " : file path -> "+filePath);
+            }
+
             allElements.stream().iterator()
                     .forEachRemaining(elementMap -> {
                         Map<CsvFileHeader, Object> csvHeaderElementMapper = new HashMap<>();
