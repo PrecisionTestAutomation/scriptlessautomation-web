@@ -220,7 +220,6 @@ public class ActionClass {
             });
             case ALERT_SEND_KEYS -> Map.of(ALERT_SEND_KEYS,()->{
                 DriverManager.getDriver().switchTo().alert().sendKeys(performActions.getSendKeys());
-                DriverManager.getDriver().switchTo().defaultContent();
                 return null;
             });
             case ALERT_GET_TEXT -> Map.of(ALERT_GET_TEXT,()->{
