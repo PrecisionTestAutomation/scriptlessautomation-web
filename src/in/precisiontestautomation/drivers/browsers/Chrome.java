@@ -2,8 +2,6 @@ package in.precisiontestautomation.drivers.browsers;
 
 import in.precisiontestautomation.configurations.BrowserConfig;
 import in.precisiontestautomation.scriptlessautomation.core.exceptionhandling.PrecisionTestException;
-import io.github.bonigarcia.wdm.WebDriverManager;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.logging.LogType;
@@ -24,8 +22,6 @@ public class Chrome {
         try {
             LoggingPreferences loggingPrefs = new LoggingPreferences();
             loggingPrefs.enable(LogType.BROWSER, Level.WARNING);
-
-            downloadChromeExecutor();
             driver.set(new ChromeDriver(chromeOptions()));
         } catch (Exception e){
             e.printStackTrace();
@@ -96,14 +92,6 @@ public class Chrome {
                 System.out.println("fail to create directoryPath '" + directoryPath+"' file will be created in local chrome download location");
             }
             return directoryPath;
-        }
-    }
-
-    private void downloadChromeExecutor(){
-        try {
-            WebDriverManager.chromedriver().setup();
-        }catch (Exception e){
-            WebDriverManager.chromiumdriver().setup();
         }
     }
 }

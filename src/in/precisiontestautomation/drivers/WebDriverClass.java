@@ -1,18 +1,7 @@
 package in.precisiontestautomation.drivers;
 
-import in.precisiontestautomation.configurations.BrowserConfig;
 import in.precisiontestautomation.drivers.browsers.Chrome;
-import in.precisiontestautomation.scriptlessautomation.core.exceptionhandling.PrecisionTestException;
-import io.github.bonigarcia.wdm.WebDriverManager;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.chrome.ChromeOptions;
-import org.openqa.selenium.logging.LogType;
-import org.openqa.selenium.logging.LoggingPreferences;
 import org.openqa.selenium.remote.RemoteWebDriver;
-
-import java.io.File;
-import java.util.HashMap;
-import java.util.logging.Level;
 
 /**
  * <p>WebDriverClass class.</p>
