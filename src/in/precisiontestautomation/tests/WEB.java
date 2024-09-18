@@ -9,7 +9,7 @@ import in.precisiontestautomation.scriptlessautomation.core.testng.xmlgenerator.
 import in.precisiontestautomation.scriptlessautomation.core.utils.CoreFrameworkActions;
 import in.precisiontestautomation.scriptlessautomation.core.utils.CoreKeyInitializers;
 import in.precisiontestautomation.setup.WebBaseTest;
-import in.precisiontestautomation.utils.ExtractTestDataFromCsv;
+import in.precisiontestautomation.utils.ExtractTestData;
 import org.apache.commons.lang3.StringUtils;
 import org.testng.Reporter;
 import org.testng.annotations.AfterMethod;
@@ -30,7 +30,7 @@ import java.util.Optional;
 public class WEB extends WebBaseTest {
 
     private static WEB instance = null;
-    private final ThreadLocal<ExtractTestDataFromCsv> extractTestData = new ThreadLocal<>();
+    private final ThreadLocal<ExtractTestData> extractTestData = new ThreadLocal<>();
     private final ThreadLocal<Boolean> validationCondition = new ThreadLocal<>();
     private final ThreadLocal<String> categoryName = new ThreadLocal<>();
     private boolean captureScreenshotOnPass = Boolean.parseBoolean(ExtentReportConfig.Report_captureScreenshotOnPass);
@@ -74,7 +74,7 @@ public class WEB extends WebBaseTest {
         categoryName.set(StringUtils.capitalize(new File(filePath).getParentFile().getName()));
         System.out.println("----------------------------------" + testCaseName + " Started----------------------------------");
         try {
-            extractTestData.set(ExtractTestDataFromCsv.getInstance(filePath)
+            extractTestData.set(ExtractTestData.getInstance(filePath)
                     .collectAllSteps()
                     .executeSteps(CoreKeyInitializers.getCustomSoftAssert().get(), this.validationCondition.get(),captureScreenshotOnPass));
         } catch (Exception e) {
@@ -94,7 +94,7 @@ public class WEB extends WebBaseTest {
     @AfterMethod(alwaysRun = true)
     public void cleanUpThreadLocals() {
         validationCondition.remove();
-        Optional.ofNullable(extractTestData.get()).ifPresent(ExtractTestDataFromCsv::webGlobalVariableClear);
+        Optional.ofNullable(extractTestData.get()).ifPresent(ExtractTestData::webGlobalVariableClear);
         extractTestData.remove();
 
     }

@@ -1,7 +1,6 @@
 package in.precisiontestautomation.utils;
 
 
-import in.precisiontestautomation.apifactory.ApiRequester;
 import in.precisiontestautomation.enums.CsvFileHeader;
 import in.precisiontestautomation.scriptlessautomation.core.exceptionhandling.PrecisionTestException;
 import in.precisiontestautomation.scriptlessautomation.core.utils.AutomationAsserts;
@@ -9,24 +8,24 @@ import in.precisiontestautomation.scriptlessautomation.core.utils.AutomationAsse
 import java.util.*;
 
 
-public class ExtractTestDataFromCsv {
+public class ExtractTestData {
 
     private final String STEP = "step";
     private final String filePath;
     Hashtable<String, Map<CsvFileHeader, Object>> table = new Hashtable<>();
 
-    private ExtractTestDataFromCsv(String filePath){
+    private ExtractTestData(String filePath){
         this.filePath = filePath;
     }
 
-    public static ExtractTestDataFromCsv getInstance(String filePath) {
-        return ThreadLocal.withInitial(() -> new ExtractTestDataFromCsv(filePath)).get();
+    public static ExtractTestData getInstance(String filePath) {
+        return ThreadLocal.withInitial(() -> new ExtractTestData(filePath)).get();
     }
 
-    public ExtractTestDataFromCsv collectAllSteps() {
+    public ExtractTestData collectAllSteps() {
         try {
             final int[] count = {0};
-            List<Map<String, String>> allElements = null;
+            List<Map<String, String>> allElements;
             if(filePath.toLowerCase().endsWith(".csv")){
                 allElements = CsvReader.readCSVFile(filePath);
             } else if(filePath.toLowerCase().endsWith(".feature")){
@@ -39,9 +38,7 @@ public class ExtractTestDataFromCsv {
                     .forEachRemaining(elementMap -> {
                         Map<CsvFileHeader, Object> csvHeaderElementMapper = new HashMap<>();
                         elementMap.entrySet().stream().iterator()
-                                .forEachRemaining(element -> {
-                                    csvHeaderElementMapper.put(CsvFileHeader.valueOf(element.getKey().toUpperCase()), element.getValue());
-                                });
+                                .forEachRemaining(element -> csvHeaderElementMapper.put(CsvFileHeader.valueOf(element.getKey().toUpperCase()), element.getValue()));
                         table.put(STEP + count[0], csvHeaderElementMapper);
                         count[0]++;
                     });
@@ -51,7 +48,7 @@ public class ExtractTestDataFromCsv {
         return this;
     }
 
-    public ExtractTestDataFromCsv executeSteps(AutomationAsserts automationAsserts, Boolean condition,Boolean captureScreenshotOnPass) {
+    public ExtractTestData executeSteps(AutomationAsserts automationAsserts, Boolean condition, Boolean captureScreenshotOnPass) {
         Map<CsvFileHeader, Object> csvHeaderElementMapper;
         if (!table.isEmpty()) {
             for (int i = 0; i < table.size(); i++) {
@@ -75,7 +72,7 @@ public class ExtractTestDataFromCsv {
         return this;
     }
 
-    public ExtractTestDataFromCsv webGlobalVariableClear() {
+    public ExtractTestData webGlobalVariableClear() {
         try {
             if (!Objects.isNull(WebKeyInitializers.getGlobalVariables().get().isEmpty())) {
                 WebKeyInitializers.getGlobalVariables().get().clear();
