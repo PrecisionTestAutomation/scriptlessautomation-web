@@ -12,7 +12,6 @@ import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import org.testng.asserts.SoftAssert;
 
 import java.io.File;
 import java.io.FileReader;
@@ -93,11 +92,11 @@ public class WebFrameworkActions extends ApiFrameworkActions{
     }
 
     private static BiPredicate<String, String> predicateWindowSwitchOnTitle() {
-        return (handle, str) -> DriverManager.getDriver().switchTo().window(handle).getTitle().contains(str);
+        return (handle, str) -> Objects.requireNonNull(DriverManager.getDriver().switchTo().window(handle).getTitle()).contains(str);
     }
 
     private static BiPredicate<String, String> predicateWindowSwitchOnUrl() {
-        return (handle, url) -> DriverManager.getDriver().switchTo().window(handle).getCurrentUrl().contains(url);
+        return (handle, url) -> Objects.requireNonNull(DriverManager.getDriver().switchTo().window(handle).getCurrentUrl()).contains(url);
     }
 
     public static void switchWindowByTitle(String title) {
@@ -382,8 +381,7 @@ public class WebFrameworkActions extends ApiFrameworkActions{
         }
     }
 
-    public static void keyboardPressButton(CharSequence charSequence){
-        new Actions(DriverManager.getDriver()).keyDown(charSequence);
-        Runtime.getRuntime().gc();
+    public static void  keyboardPressButton(CharSequence charSequence){
+        new Actions(DriverManager.getDriver()).keyDown(charSequence).perform();
     }
 }
