@@ -239,6 +239,18 @@ public class ActionClass {
                 WebFrameworkActions.keyboardPressButton(Keys.ENTER);
                 return null;
             });
+            case SWITCH_BY_TITLE -> Map.of(SWITCH_BY_TITLE,()->{
+                WebFrameworkActions.switchWindowByTitle(performActions.getSendKeys());
+                return null;
+            });
+            case SWITCH_BY_URL -> Map.of(SWITCH_BY_URL,()->{
+                WebFrameworkActions.switchWindowByUrl(performActions.getSendKeys());
+                return null;
+            });
+            case SWITCH_TO_PARENT_WINDOW -> Map.of(SWITCH_TO_PARENT_WINDOW,()->{
+                WebKeyInitializers.getDriver().get().switchTo().window(WebKeyInitializers.getGetMainWindow().get());
+                return null;
+            });
             default -> Map.of(NONE, () -> {
                 ReportManagerRunner.getTest().log(Status.INFO, performActions.getElementName() + " has no action to perform");
                 return element;
