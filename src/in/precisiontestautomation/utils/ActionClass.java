@@ -251,6 +251,14 @@ public class ActionClass {
                 WebKeyInitializers.getDriver().get().switchTo().window(WebKeyInitializers.getGetMainWindow().get());
                 return null;
             });
+            case SWITCH_FRAME_BY_INDEX -> Map.of(SWITCH_FRAME_BY_INDEX,()->{
+                WebKeyInitializers.getDriver().get().switchTo().frame(Integer.parseInt(performActions.getSendKeys()));
+                return null;
+            });
+            case SWITCH_FRAME_BY_NAME_ID -> Map.of(SWITCH_FRAME_BY_NAME_ID,()->{
+                WebKeyInitializers.getDriver().get().switchTo().frame(performActions.getSendKeys());
+                return null;
+            });
             default -> Map.of(NONE, () -> {
                 ReportManagerRunner.getTest().log(Status.INFO, performActions.getElementName() + " has no action to perform");
                 return element;
